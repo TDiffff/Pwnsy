@@ -76,6 +76,8 @@ void setup() {
   pinMode (iButtonPin3, INPUT_PULLUP);
   pinMode (iResetPin, INPUT_PULLUP);
   
+  digitalWrite(iLedPin, LOW); 
+ 
   // Is windows ready?
   waitForDrivers(); 
 
