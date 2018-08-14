@@ -56,6 +56,9 @@ Done! You can execute any PowerShell command and get the output in your netcat l
 ## Demo : 
 [![5 Seconds Reverse Shell](https://img.youtube.com/vi/8NpX56rHsYY/0.jpg)](https://www.youtube.com/watch?v=8NpX56rHsYY)
 
+## Example of Post-Exploitation payload : 
+[![Screenshot Retrieval from Reverse Shell](https://img.youtube.com/vi/HPO-l4Br-zY/0.jpg)](https://www.youtube.com/watch?v=HPO-l4Br-zY)
+
 ### Notes
 Intended for legal usage ONLY, I'm not liable for anything you do with this code.  
 Feel free to give feedback and ideas in order to improve it!
