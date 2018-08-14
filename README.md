@@ -22,7 +22,7 @@ That way we can have feedback from a distant machine of what's happening on comm
 
 In case you need an elevated PowerShell prompt to execute script from the server, there is an admin mode  
 that will run PowerShell as admin and wait for a button to be pressed to accept the UAC prompt if there is one.  
-That way, it's reliable and we don't have to pray for it to pop within a fixed amount of time (no delays).  
+That way, it's reliable and we don't have to pray for it to pop within a fixed amount of time (no hardcoded delays involved).  
 
 1. Hardware required
    - A Teensy board (2.0 up to 3.6)
