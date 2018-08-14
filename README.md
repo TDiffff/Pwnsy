@@ -1,5 +1,5 @@
 # Pwnsy
-Penetration Testing Tool for Windows 7 => 10
+Penetration Testing Tool for Windows 7 -> 10
 
 Idea : Peensy (Offensive Security)  
 Thanks to : @samratashok for the tiny (~280 characters) PowerShell TCP Client
