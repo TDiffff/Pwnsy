@@ -2,7 +2,6 @@
 // `--------------------> : for the ideas, samratashok (tiny TCP Client)
 
 // -- Purpose ----------> : Penetration Testing Tool for Windows 7 => 10
-//
 // -- Tested Platforms -> : Windows 7 x86, Windows 8 x64, Windows 10 x64
 
 // ,- Hardware ---------> : Required : - A Teensy board  (2.0 up to 3.6)
