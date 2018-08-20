@@ -18,7 +18,7 @@
 
  /////////////
 // Config  //////////////////////
-String sAddr = "0.0.0.0";      // TCP Server Address
+String sAddr = "10.122.6.134"; // TCP Server Address
 String sPort = "1337";         // TCP Server Port
 String sEnc  = "UTF8";         // Encoding used
 bool   bUAC  = false;          // Using UAC prompt accept?
@@ -70,11 +70,11 @@ void waitForDrivers(int iDelay = 0, bool bInitialState = isScrollOn()) {
   scrollOff(); 
   capsOff();
   
-  if (iDelay >= 5000 and EEPROM.read(0) != 1) { 
-    CPU_RESTART; EEPROM.write(0, 1); 
+  if ((iDelay >= 10000) && (int(EEPROM.read(0)) != 255)) { 
+    EEPROM.write(0,255); CPU_RESTART;  
   } 
-  else if (EEPROM.read(0) != 0) { 
-    EEPROM.write(0, 0); 
+  else if (int(EEPROM.read(0)) != 0) { 
+    EEPROM.write(0,0); 
   }
 }
 
