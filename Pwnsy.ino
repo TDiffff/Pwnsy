@@ -18,7 +18,7 @@
 
  /////////////
 // Config  //////////////////////
-String sAddr = "10.122.6.134"; // TCP Server Address
+String sAddr = "0.0.0.0     "; // TCP Server Address
 String sPort = "1337";         // TCP Server Port
 String sEnc  = "UTF8";         // Encoding used
 bool   bUAC  = false;          // Using UAC prompt accept?
