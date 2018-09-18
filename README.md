@@ -24,12 +24,11 @@ That way, it's reliable and we don't have to pray for it to pop within a fixed a
    - Switch buttons (3) to configure the different modes without compiling it every time
    - A test PCB to put those
    
-What are the buttons doing? 
-
-Button 1. Start typing after the keyboard is ready  
-Button 2. Accept the UAC prompt if there is the need to  
-Button 3. Admin mode (that will modify the command typed in the Run window in order to execute an elevated   
-PowerShell prompt, then wait for the button 2 to be pressed in order to continue)   
+2. What are the buttons doing? 
+   - Button 1. Start typing after the keyboard is ready  
+   - Button 2. Admin mode (that will modify the command typed in the Run window in order to execute an elevated   
+               PowerShell prompt, then wait for the button 2 to be pressed in order to continue)   
+   - Button 3. Accept the UAC prompt if there is the need to  
 
 ## What do I need to setup (Server side)
 Simply run netcat on linux, like this :  
