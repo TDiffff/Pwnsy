@@ -12,7 +12,7 @@ amount of time, and in a stealthy manner.
 It uses the abilities of the Teensy boards to deploy a small powershell script, using keyboard emulation.  
 The goal of this project was to find a way to launch a TCP Client that would connect to a netcat listener.  
 
-In order to type and execute the payload, we use the explorer address bar in order to type powershell commands 
+In order to type and execute the payload, we use the explorer address bar in order to type powershell commands  
 that can be longer than 260 chars. That's why we don't use Windows + R "Run" window. 
 
 In case you need an elevated PowerShell prompt to execute script from the server, there is an admin mode  
@@ -28,8 +28,8 @@ What are the buttons doing?
 
 Button 1. Start typing after the keyboard is ready  
 Button 2. Accept the UAC prompt if there is the need to  
-Button 3. Admin mode (that will modify the command typed in the Run window in order to execute an elevated  
-PowerShell prompt, then wait for the button 2 to be pressed in order to continue)  
+Button 3. Admin mode (that will modify the command typed in the Run window in order to execute an elevated   
+PowerShell prompt, then wait for the button 2 to be pressed in order to continue)   
 
 ## What do I need to setup (Server side)
 Simply run netcat on linux, like this :  
@@ -37,7 +37,7 @@ Simply run netcat on linux, like this :
 
 I advice you to run it inside of a loop in bash, so you can exit it with Ctrl+C, so you can reconnect to your client if needed.
 
-Once you recieve a connexion, you can start executing powershell commands / scripts on the client, for example : 
+Once you recieve a connexion, you can start executing powershell commands / scripts on the client, for example :  
 ```  
 whoami
 ipconfig
